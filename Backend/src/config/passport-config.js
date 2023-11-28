@@ -28,8 +28,8 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.clientID,
-      clientSecret: process.env.clientSecret,
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
       callbackURL: 'http://localhost:5000/auth/google/callback', // Update the callbackURL based on your setup
     },
     async (accessToken, refreshToken, profile, done) => {
