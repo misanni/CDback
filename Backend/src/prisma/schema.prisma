@@ -10,7 +10,8 @@ datasource db {
 // User entity
 model User {
   id             Int       @id @default(autoincrement())
-  email          String    
+ googleId  String?   @unique
+  email     String?   
   username       String?
   profilePhoto   String?
   password       String?

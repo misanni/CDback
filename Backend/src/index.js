@@ -25,7 +25,7 @@ const UserAuthRouter =require("./routes/auth")
 const UserProfileRouter =require("./routes/userProfile")
 
 
-app.use('/api/auth',UserAuthRouter)
+app.use('/api',UserAuthRouter)
 app.use('/api',UserProfileRouter)
 
 

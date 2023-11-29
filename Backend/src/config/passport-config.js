@@ -30,20 +30,20 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'http://localhost:5000/auth/google/callback', // Update the callbackURL based on your setup
+      callbackURL: 'http://localhost:4000/api/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const user = await prisma.user.findUnique({ where: { email: profile.emails[0].value } });
+        const user = await prisma.user.findUnique({ where: { googleId: profile.id } });
 
         if (user) {
           return done(null, user);
         }
 
-        // If the user doesn't exist, you may want to create a new user in your database
         const newUser = await prisma.user.create({
           data: {
-            email: profile.emails[0].value,
+            googleId: profile.id,
+            email: profile.emails && profile.emails[0]?.value || '',
             // Add any other required fields from the Google profile
           },
         });
@@ -55,6 +55,11 @@ passport.use(
     }
   )
 );
+
+
+
+
+
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
